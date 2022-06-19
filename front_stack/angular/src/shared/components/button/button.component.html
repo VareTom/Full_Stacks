@@ -1,8 +1,14 @@
 <button class="button"
         [disabled]="isDisabled"
+        [class.icon-button]="isIconButton"
         [class.disabled]="isLoading">
   <ng-container *ngIf="!isLoading; else loading">
-    {{ buttonText }}
+    <ng-container *ngIf="!isIconButton; else iconButton">
+      {{ buttonText }}
+    </ng-container>
+    <ng-template #iconButton>
+      <img [src]="buttonText" alt="icon button">
+    </ng-template>
   </ng-container>
   <ng-template #loading>
     <div class="loader">

@@ -10,6 +10,8 @@ export class ButtonComponent implements OnInit {
   @Input()
   isLoading: boolean;
   @Input()
+  isIconButton: boolean;
+  @Input()
   isDisabled: boolean;
   @Input()
   buttonText: string;
