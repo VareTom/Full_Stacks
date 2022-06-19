@@ -1,1 +1,12 @@
-<p>footer works!</p>
+<div class="footer">
+  <div class="flex-row theme-switcher" *ngIf="false">
+    <img [src]="isDarkMode ? 'assets/icons/moon.svg': 'assets/icons/sun.svg'" alt="theme icon" class="theme-icon" (click)="onSwitchTheme()">
+  </div>
+  <div></div>
+  <div class=""><p>Made by Toc with ❤ ️</p></div>
+  <div class="flex-row lang-switcher end">
+    <span class="lang" [ngClass]="translate.currentLang === LanguageCodes.FR ? 'active':''" (click)="onChangeCurrentLang(LanguageCodes.FR)">FR</span>
+    <span class="separator">-</span>
+    <span class="lang" [ngClass]="translate.currentLang === LanguageCodes.EN ? 'active':''" (click)="onChangeCurrentLang(LanguageCodes.EN)">EN</span>
+  </div>
+</div>

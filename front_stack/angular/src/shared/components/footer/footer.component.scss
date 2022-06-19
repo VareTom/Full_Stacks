@@ -1,0 +1,42 @@
+@import "src/styles/colors";
+
+.footer {
+  width: calc(100% - 20px);
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 10px 10px 20px rgba($black,0.2);
+  padding: 0 10px;
+
+  p {
+    text-align: center;
+    font-size: 1rem;
+    color: $black;
+  }
+
+  & > * {
+    flex: 1;
+  }
+
+  .lang-switcher {
+    .active {
+      font-weight: bold;
+      color: $black;
+    }
+    .separator {
+      margin: 0 10px;
+    }
+    .lang {
+      cursor: pointer;
+    }
+  }
+
+  .theme-switcher {
+    img {
+      cursor: pointer;
+    }
+  }
+}
