@@ -8,8 +8,8 @@
   </div>
   <div class="sub-title">{{'subtitles.login'|translate}}</div>
   <div class="flex-row full-width center actions">
-    <app-button [buttonText]="'Google'"></app-button>
-    <app-button [buttonText]="'Twitter'"></app-button>
+    <app-button [buttonText]="'Google'" (click)="onGoogleAuth()"></app-button>
+    <app-button [buttonText]="'Twitter'" (click)="onTwitterAuth()"></app-button>
   </div>
 </div>
 <div class="flex-row center">

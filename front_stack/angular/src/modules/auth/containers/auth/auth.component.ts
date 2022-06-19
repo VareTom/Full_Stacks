@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/shared/services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
-
+  
+  onGoogleAuth(): void {
+    this.authService.googleConnection();
+  }
+  
+  onTwitterAuth(): void {
+    this.authService.twitterConnection();
+  }
 }

@@ -1,4 +1,13 @@
 export const environment = {
   production: true,
-  googleClientId: '343280556655-i5p8u83520ogbpi0698sft8of6nbiq54.apps.googleusercontent.com'
+  serverUrl: '',
+  firebase: {
+    apiKey: "AIzaSyCdxZRKDctJQ_7K1IAxVTW7crih5miWdXo",
+    authDomain: "full-stacks.firebaseapp.com",
+    projectId: "full-stacks",
+    storageBucket: "full-stacks.appspot.com",
+    messagingSenderId: "343280556655",
+    appId: "1:343280556655:web:f06369c8b1ab6eb2650b9a",
+    measurementId: "G-40DCN5EL38"
+  }
 };
