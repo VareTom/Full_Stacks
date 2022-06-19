@@ -1,7 +1,7 @@
 import { Store } from '../store';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 
@@ -16,13 +16,17 @@ import { AppComponent } from './app.component';
 import { SharedModule } from '../shared/shared.module';
 import { AuthModule } from 'src/modules/auth/auth.module';
 
+// Interceptors
+import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
+import { HttpErrorInterceptor } from 'src/app/interceptors/http-error.interceptor';
+
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
 }
 
 const routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'home' },
-  { path: '**', redirectTo: 'home' },
+  { path: '', pathMatch: 'full', redirectTo: 'auth' },
+  { path: '**', redirectTo: 'auth' },
 ]
 
 @NgModule({
@@ -47,10 +51,11 @@ const routes = [
     // Custom Modules
     AuthModule,
     SharedModule
-
   ],
   providers: [
-      Store
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+    Store
   ],
   bootstrap: [AppComponent]
 })

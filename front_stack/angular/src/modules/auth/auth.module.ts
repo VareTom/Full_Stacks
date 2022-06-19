@@ -1,7 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthComponent } from './containers/auth/auth.component';
+import { RouterModule, Routes } from '@angular/router';
+
+// Custom Modules
 import { SharedModule } from 'src/shared/shared.module';
+
+// Containers
+import { AuthComponent } from './containers/auth/auth.component';
+
+const routes: Routes = [
+  {
+    path: 'auth',
+    component: AuthComponent,
+  }
+]
 
 @NgModule({
   declarations: [
@@ -10,6 +22,7 @@ import { SharedModule } from 'src/shared/shared.module';
   ],
   imports: [
     CommonModule,
+    RouterModule.forChild(routes),
     
     SharedModule.forRoot()
   ]

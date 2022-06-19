@@ -1,1 +1,12 @@
-<p>button works!</p>
+<button class="button"
+        [disabled]="isDisabled"
+        [class.disabled]="isLoading">
+  <ng-container *ngIf="!isLoading; else loading">
+    {{ buttonText }}
+  </ng-container>
+  <ng-template #loading>
+    <div class="loader">
+      <img class="loader-icon" alt="refresh icon" src="assets/icons/refresh-cw.svg">
+    </div>
+  </ng-template>
+</button>

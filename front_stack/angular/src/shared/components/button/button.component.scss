@@ -1,0 +1,52 @@
+@import "src/styles/colors";
+
+.button {
+  height: 42px;
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 10px;
+  background: $black;
+  color: $white;
+  border-radius: 12px;
+  border: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  outline: 2px solid $black;
+  transition: all 0.2s ease-in-out;
+  width: 100%;
+
+  &.disabled, &:disabled {
+    background: rgba($black, 0.5);
+    outline: 2px solid rgba($black, 0.5);
+    &:hover {
+      color: $white;
+      background: rgba($black, 0.5);
+      outline: 2px solid rgba($black, 0.5);
+      cursor: not-allowed;
+    }
+  }
+
+  &:hover {
+    outline: 2px solid $black;
+    background: $white;
+    color: $black;
+  }
+
+  .loader {
+    img {
+      animation: rotation 2s infinite linear;
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
