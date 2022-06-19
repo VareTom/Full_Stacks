@@ -5,12 +5,12 @@
 One single project in different stack for the backend and frontend.
 Purpose: Discover the most stack as possible.
 
-
 Task in all projects:
 
     FRONT: 
         Google/Twitter authentification.
-        Items listing with filter (search + dropdown for category), pagination and sort on columns.
+        Stack listing with filter (search + dropdown for category), pagination and sort on columns.
+        A stack is define by a name / description / website url / logo (image uploader) and my opinion (5 stars)
         Actions on each rows (update, delete, preview)
         Preview: sidebar appear from right.
         Creation / update form in a single page.
