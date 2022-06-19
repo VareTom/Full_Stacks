@@ -1,3 +1,11 @@
 {
-
+  "global": {
+    "title": "Stacks"
+  },
+  "titles": {
+    "login": "Connexion et Inscription"
+  },
+  "subtitles": {
+    "login": "Un seul formulaire pour accéder à toutes les fonctionnalités!\nC'est pas beau ca?"
+  }
 }

@@ -112,3 +112,17 @@ textarea {
     font-size: 12px;
   }
 }
+
+.card {
+  margin: 20px;
+  padding: 40px;
+  background: $white;
+  box-shadow:  10px 10px 20px rgba($black,0.2),
+  -10px -10px 20px white;
+}
+
+a {
+  text-decoration: none;
+  color: $black;
+  cursor: pointer;
+}
