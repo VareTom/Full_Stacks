@@ -9,6 +9,7 @@ import { DEVELOPMENT, SEQUELIZE } from '../constants';
 
 // Entities
 import { User } from 'src/core/entities/user.entity';
+import { Stack } from '../entities/stack.entity';
 
 export const databaseProviders = [{
   provide: SEQUELIZE,
@@ -16,7 +17,8 @@ export const databaseProviders = [{
     const dbConfig = configuration()[process.env.NODE_ENV].db;
     const sequelize = new Sequelize(dbConfig);
     sequelize.addModels([
-      User
+      User,
+      Stack
     ]);
     if (process.env.NODE_ENV === DEVELOPMENT) {
       await sequelize.sync({alter: true})

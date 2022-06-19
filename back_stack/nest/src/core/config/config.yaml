@@ -6,7 +6,7 @@ development:
     password: ''
     dialect: 'mysql'
     logging: false
-    database: 'nest-starter'
+    database: 'stacks'
     define:
       createdAt: 'created_at'
       updatedAt: 'updated_at'
