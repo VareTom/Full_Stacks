@@ -1,7 +1,114 @@
-@import 'src/assets/styles/colors.scss';
+
+@import 'src/styles/colors.scss';
+@import 'src/styles/material.scss';
 
 * {
   margin: 0;
   padding: 0;
+  font-size: 16px;
+  font-family: 'Open Sans', sans-serif;
+  color: $black;
 }
 
+html {
+  background: $white;
+}
+
+::selection {
+  background: $black;
+  color: $white;
+}
+
+h1 {
+  padding: 10px 20px;
+  font-size: 5rem;
+}
+
+h2 {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+}
+
+input[type=text], input[type=number], input[type=email], input[type=password], textarea, select {
+  background: $white;
+  height: 40px;
+  border: none;
+  border-radius: 12px;
+  padding: 0 15px;
+  outline: 1px solid rgba($black, 0.1);
+
+  &:disabled {
+    background: rgba($black, 0.5);
+  }
+  &:invalid {
+    outline: 1px solid rgba($black, 0.5);
+  }
+
+  &::placeholder {
+    color: $black !important;
+    opacity: 1;
+  }
+
+  &.ng-invalid.ng-touched {
+    outline: 2px solid rgba($black, 0.5);
+    animation: shake 300ms;
+  }
+}
+
+select {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  text-indent: 1;
+}
+
+textarea {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.flex-column,
+.flex-row {
+  &.center {
+    justify-content: center;
+    align-items: center;
+  }
+  &.end {
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+
+.disabled {
+  background: rgba($black, 0.5);
+}
+
+.input-group {
+  margin: 10px;
+  .input-label {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: $font-dark;
+  }
+
+  .input-error-message {
+    color: rgba($black, 0.5);
+    margin-top: 5px;
+    font-size: 12px;
+  }
+}

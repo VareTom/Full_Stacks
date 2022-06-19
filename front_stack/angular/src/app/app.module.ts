@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
 
 // Modules
 import { SharedModule } from '../shared/shared.module';
-import { HomeModule } from '../home/home.module';
+import { AuthModule } from 'src/modules/auth/auth.module';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
@@ -45,7 +45,7 @@ const routes = [
     }),
 
     // Custom Modules
-    HomeModule,
+    AuthModule,
     SharedModule
 
   ],
