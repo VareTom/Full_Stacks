@@ -1,0 +1,74 @@
+@import 'colors';
+
+// Toaster
+.mat-snack-bar-container {
+  height: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.success {
+    color: $black !important;
+    background: $white;
+  }
+
+  &.error {
+    color: $white !important;
+    background: $black;
+  }
+}
+
+// Dialog
+.mat-dialog-container {
+  overflow-y: hidden;
+  box-shadow: 0 5px 15px -5px rgba($black, 0.20), 0 9px 20px 4px rgb($black, 0.12) !important;
+  backdrop-filter: blur(16px) saturate(100%);
+  -webkit-backdrop-filter: blur(16px) saturate(100%);
+  background-color: rgba($white, 0.1);
+  border: 1px solid rgba($black, 0.125);
+  .title {
+    font-size: 1.75rem;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .container {
+    margin: 0;
+  }
+}
+
+// Input
+.mat-input-element {
+  height: 40px !important;
+}
+
+// Button
+.mat-button {
+  background-color: rgba($black, 0.2);
+}
+
+// Table
+.mat-table {
+  margin: 20px 10px;
+  width: calc(100% - 20px);
+  background: transparent;
+
+  th.mat-header-cell {
+    text-transform: uppercase;
+    color: $black;
+  }
+
+  tr.mat-row {
+    td {
+      color: $black;
+    }
+
+    &:hover {
+      border-radius: 12px;
+      box-shadow: 0 2px 5px 5px rgba($black,0.2);
+      td {
+        font-weight: bold;
+      }
+    }
+  }
+}
