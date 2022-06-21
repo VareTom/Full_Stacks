@@ -33,7 +33,7 @@ export class AuthService {
     return new UserOutputDto(user);
   }
   
-  async login(userCreateInput: UserCreateInputDto): Promise<UserCreateOutputDto> {
+  async connect(userCreateInput: UserCreateInputDto): Promise<UserCreateOutputDto> {
     const user = await this.userRepository.findOne({
       where: {
         email: userCreateInput.email
