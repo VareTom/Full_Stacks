@@ -71,7 +71,7 @@ export class AuthService {
     if (!user) throw new HttpException('An error occured when retrieving user infos!', HttpStatus.INTERNAL_SERVER_ERROR);
 
     const formattedUser = new UserInfoOutputDto(user);
-    const jwt = this.jwt.sign({user: formattedUser});
+    const jwt = this.jwt.sign({ userUuid: formattedUser.uuid });
     if (!jwt) throw new HttpException('Token creation failed!', HttpStatus.INTERNAL_SERVER_ERROR);
 
     return {

@@ -1,12 +1,13 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 // Services
 import { AuthService } from 'src/shared/services/auth.service';
 import { NotificationService } from 'src/shared/services/notification.service';
 
 // Google
-import { getAdditionalUserInfo, GoogleAuthProvider, TwitterAuthProvider, UserCredential } from "firebase/auth";
+import { GoogleAuthProvider, TwitterAuthProvider } from "firebase/auth";
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
@@ -27,7 +28,7 @@ export class AuthComponent implements OnInit {
   }
 
   private connect(userInfos: any): void {
-    if (userInfos) this.authService.auth(userInfos).subscribe((result) => { console.log(result); });
+    if (userInfos) this.authService.auth(userInfos).subscribe(() => { });
   }
 
   async onGoogleAuth(): Promise<void> {
