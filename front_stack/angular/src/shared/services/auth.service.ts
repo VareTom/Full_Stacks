@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { browserSessionPersistence, TwitterAuthProvider } from "firebase/auth";
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
 import { catchError, map, Observable, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 import { Store } from 'src/store';
+import Config from 'src/app/config/serverUrls.json';
 
 // Firebase
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { getAuth, signOut, GoogleAuthProvider } from "firebase/auth";
-
-import Config from 'src/app/config/serverUrls.json';
+import { getAuth, signOut } from "firebase/auth";
 
 // Models
 import { User } from 'src/shared/models/user';
@@ -28,19 +27,21 @@ export class AuthService {
   constructor(
     private translate: TranslateService,
     private readonly notificationService: NotificationService,
-    private angularFireAuth: AngularFireAuth,
+    private router: Router,
     private store: Store,
     private http: HttpClient) {
   }
 
-  auth(userInfo: any): Observable<User> {
+  auth(userInfo: any): Observable<void> {
     return this.http.post(`${this.baseRoute}`, userInfo)
       .pipe(
-        map((connectedUser: any) => {
-          localStorage.setItem('token', connectedUser.token);
-          const user = new User(connectedUser.user);
-          this.store.set('connectedUser', user);
-          return user;
+        map((result: any) => {
+          if (result) {
+            localStorage.setItem('token', result.token);
+            const user = new User(result.user);
+            this.store.set('connectedUser', user);
+            this.router.navigateByUrl('cms');
+          }
         }),
         catchError(err => throwError(err))
       )
