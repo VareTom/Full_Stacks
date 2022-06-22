@@ -1,9 +1,13 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/shared/services/auth.service';
 
-import { GoogleAuthProvider } from "firebase/auth";
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+// Services
+import { AuthService } from 'src/shared/services/auth.service';
 import { NotificationService } from 'src/shared/services/notification.service';
+
+// Google
+import { getAdditionalUserInfo, GoogleAuthProvider, TwitterAuthProvider, UserCredential } from "firebase/auth";
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-auth',
@@ -15,6 +19,7 @@ export class AuthComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private angularFireAuth: AngularFireAuth,
+    private translate: TranslateService,
     private notificationService: NotificationService
   ) { }
 
@@ -28,15 +33,35 @@ export class AuthComponent implements OnInit {
   async onGoogleAuth(): Promise<void> {
     const provider = new GoogleAuthProvider();
     this.angularFireAuth.signInWithPopup(provider)
-      .then(async (result: any) => {
-        this.connect(result.additionalUserInfo);
+      .then((result) => {
+        console.log(result);
+        const userInfos = {
+          isNewUser: result.additionalUserInfo.isNewUser,
+          provider: result.additionalUserInfo.providerId,
+          profile: result.additionalUserInfo.profile
+        }
+        this.connect(userInfos);
       }).catch((error) => {
         console.log(error);
-        this.notificationService.showError('Une erreur est survenue lors de la connexion Google!');
+        this.notificationService.showError(this.translate.instant('errors.login.google'));
       });
   }
   
   onTwitterAuth(): void {
-    this.authService.twitterConnection();
+    const provider = new TwitterAuthProvider();
+    this.angularFireAuth.signInWithPopup(provider)
+      .then((result) => {
+        console.log(result);
+        const userInfos = {
+          isNewUser: result.additionalUserInfo.isNewUser,
+          username: result.additionalUserInfo.username,
+          provider: result.additionalUserInfo.providerId,
+          profile: result.additionalUserInfo.profile
+        }
+        this.connect(userInfos);
+      }).catch((error) => {
+        console.log(error);
+        this.notificationService.showError(this.translate.instant('errors.login.twitter'));
+      });
   }
 }

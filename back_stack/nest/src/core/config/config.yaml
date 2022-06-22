@@ -11,6 +11,3 @@ development:
       createdAt: 'created_at'
       updatedAt: 'updated_at'
       deletedAt: 'deleted_at'
-google:
-  clientId: '343280556655-i5p8u83520ogbpi0698sft8of6nbiq54.apps.googleusercontent.com'
-  clientSecret: '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'

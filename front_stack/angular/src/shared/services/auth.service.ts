@@ -46,47 +46,14 @@ export class AuthService {
       )
   }
 
-  googleConnection(): any {
-    this.angularFireAuth.setPersistence(browserSessionPersistence)
-      .then(() => {
-
-    })
-  }
-  
-  twitterConnection(): any {
-    const provider = new TwitterAuthProvider();
-    this.angularFireAuth.signInWithPopup(provider)
-      .then((result: any) => {
-        console.log(result);
-        // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
-        // You can use these server side with your app's credentials to access the Twitter API.
-        const credential = TwitterAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const secret = credential.secret;
-        //
-        // // The signed-in user info.
-        // const user = result.user;
-        console.log(credential, token, secret)
-        // ...
-      }).catch((error) => {
-        this.notificationService.showError('Une erreur est survenue lors de la connexion Google!');
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      //const email = error.customData.email;
-      // The AuthCredential type that was used.
-      const credential = TwitterAuthProvider.credentialFromError(error);
-      // ...
-    });
-  }
-  
   logOut(): void {
     const auth = getAuth();
     signOut(auth).then(() => {
-      // Sign-out successful.
+      localStorage.clear();
+      this.store.set('connectedUser', undefined);
     }).catch((error) => {
-      // An error happened.
+      console.log(error);
+      this.notificationService.showError(this.translate.instant('errors.logout'));
     });
   }
 }

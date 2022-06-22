@@ -1,12 +1,12 @@
 import { IsInstance, IsNotEmpty, IsNumber } from 'class-validator';
 
 // DTOs
-import { UserOutputDto } from 'src/dtos/user/userOutputDto';
+import { UserInfoOutputDto } from 'src/dtos/user/userInfoOutputDto';
 
 export class TokenPayloadInterface {
   @IsNotEmpty()
-  @IsInstance(UserOutputDto)
-  user: UserOutputDto;
+  @IsInstance(UserInfoOutputDto)
+  user: UserInfoOutputDto;
   
   @IsNumber()
   @IsNotEmpty()

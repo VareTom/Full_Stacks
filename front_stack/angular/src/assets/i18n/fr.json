@@ -7,5 +7,12 @@
   },
   "subtitles": {
     "login": "Un seul formulaire pour accéder à toutes les fonctionnalités!\nC'est pas beau ca?"
+  },
+  "errors": {
+    "login": {
+      "google": "Une erreur est survenue lors de la connexion avec Google!",
+      "twitter": "Une erreur est survenue lors de la connexion avec Twitter!"
+    },
+    "logout": "Une erreur est survenur lors de la déconnexion de votre compte!"
   }
 }

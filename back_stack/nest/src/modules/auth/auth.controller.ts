@@ -7,8 +7,8 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthService } from 'src/modules/auth/auth.service';
 
 // DTOs
-import { UserCreateOutputDto } from 'src/dtos/user/userCreateOutputDto';
-import { UserCreateInputDto } from 'src/dtos/user/userCreateInputDto';
+import { UserOutputDto } from 'src/dtos/user/userOutputDto';
+import { UserInputDto } from 'src/dtos/user/userInputDto';
 
 
 @ApiTags('auth')
@@ -21,10 +21,10 @@ export class AuthController {
 
   @ApiResponse({
     status: 200,
-    type: UserCreateOutputDto
+    type: UserOutputDto
   })
   @Post()
-  async connect(@Body() user: UserCreateInputDto): Promise<UserCreateOutputDto> {
+  async connect(@Body() user: UserInputDto): Promise<UserOutputDto> {
     return await this.authService.connect(user);
   }
 }

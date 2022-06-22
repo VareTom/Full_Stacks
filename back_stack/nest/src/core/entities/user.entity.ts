@@ -1,15 +1,18 @@
 import {
+  AllowNull,
   Column,
   DataType,
   Default, Index,
-  IsEmail,
   IsUUID,
   Model,
   PrimaryKey,
   Table,
   Unique
 } from 'sequelize-typescript';
-import { IsString } from 'class-validator';
+import { IsEnum, IsString } from 'class-validator';
+
+// Enums
+import { Providers } from 'src/enums/providers';
 
 @Table({
   timestamps: true,
@@ -24,12 +27,18 @@ export class User extends Model<User> {
   @Column
   uuid: string;
   
-  @IsEmail
+  @IsString()
   @Index({unique: true})
+  @AllowNull(false)
   @Column
-  email: string;
-  
+  identifier: string;
+
+  @IsEnum(Providers)
+  @AllowNull(false)
+  @Column
+  provider: Providers;
+
   @IsString()
   @Column
-  password: string;
+  profile_picture_url: string;
 }

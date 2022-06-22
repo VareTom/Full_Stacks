@@ -17,7 +17,7 @@ import { UserService } from 'src/modules/user/user.service';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 
 // DTOs
-import { UserOutputDto } from 'src/dtos/user/userOutputDto';
+import { UserInfoOutputDto } from 'src/dtos/user/userInfoOutputDto';
 import { UserUpdateInputDto } from 'src/dtos/user/userUpdateInputDto';
 
 @ApiTags('users')
@@ -33,23 +33,10 @@ export class UserController {
   @ApiResponse({ status: 401, description: 'Unauthorized'})
   @ApiResponse({
     status: 200,
-    type: UserOutputDto,
-    isArray: true
-  })
-  @Get('/all')
-  async getAll(): Promise<UserOutputDto[]> {
-    return await this.userService.getAll();
-  }
-  
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @ApiResponse({ status: 401, description: 'Unauthorized'})
-  @ApiResponse({
-    status: 200,
-    type: UserOutputDto
+    type: UserInfoOutputDto
   })
   @Get(':uuid')
-  async findOne(@Param('uuid') uuid: string): Promise<UserOutputDto> {
+  async findOne(@Param('uuid') uuid: string): Promise<UserInfoOutputDto> {
     return await this.userService.getOne(uuid);
   }
   
@@ -58,11 +45,11 @@ export class UserController {
   @ApiResponse({ status: 401, description: 'Unauthorized'})
   @ApiResponse({
     status: 200,
-    type: UserOutputDto
+    type: UserInfoOutputDto
   })
   @Put(':uuid')
   async update(@Param('uuid') uuid: string,
-               @Body() user: UserUpdateInputDto): Promise<UserOutputDto> {
+    @Body() user: UserUpdateInputDto): Promise<UserInfoOutputDto> {
     return await this.userService.update(user,uuid);
   }
 }

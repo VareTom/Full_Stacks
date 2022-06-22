@@ -9,7 +9,7 @@ import { AuthService } from 'src/modules/auth/auth.service';
 import { TokenPayloadInterface } from 'src/core/interfaces/tokenPayload.interface';
 
 // DTOs
-import { UserOutputDto } from 'src/dtos/user/userOutputDto';
+import { UserInfoOutputDto } from 'src/dtos/user/userInfoOutputDto';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -21,7 +21,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
   
-  async validate(payload: TokenPayloadInterface): Promise<UserOutputDto> {
+  async validate(payload: TokenPayloadInterface): Promise<UserInfoOutputDto> {
     return this.authService.validateUser(payload.user.uuid);
   }
 }

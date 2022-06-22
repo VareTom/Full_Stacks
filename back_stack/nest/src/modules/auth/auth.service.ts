@@ -11,9 +11,12 @@ import { User } from 'src/core/entities/user.entity';
 import { USER_REPOSITORY } from 'src/core/constants';
 
 // DTOs
+import { UserInfoOutputDto } from 'src/dtos/user/userInfoOutputDto';
 import { UserOutputDto } from 'src/dtos/user/userOutputDto';
-import { UserCreateOutputDto } from 'src/dtos/user/userCreateOutputDto';
-import { UserCreateInputDto } from 'src/dtos/user/userCreateInputDto';
+import { UserInputDto } from 'src/dtos/user/userInputDto';
+
+// Enums
+import { Providers } from 'src/enums/providers';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +24,7 @@ export class AuthService {
               private userRepository: typeof User,
               private readonly jwt: JwtService) {}
   
-  async validateUser(uuid: string): Promise<UserOutputDto> {
+  async validateUser(uuid: string): Promise<UserInfoOutputDto> {
     const user = await this.userRepository.findOne({
       where: {
         uuid: uuid
@@ -30,44 +33,50 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException();
     }
-    return new UserOutputDto(user);
+    return new UserInfoOutputDto(user);
   }
   
-  async connect(userCreateInput: UserCreateInputDto): Promise<UserCreateOutputDto> {
-    const user = await this.userRepository.findOne({
-      where: {
-        email: userCreateInput.email
+  async connect(userInput: UserInputDto): Promise<UserOutputDto> {
+    let user;
+    console.log(userInput);
+    if (userInput.isNewUser) {
+      let userInfos;
+      if (userInput.provider === Providers.TWITTER) {
+        console.log(userInput);
+
+        userInfos = {
+          identifier: userInput.username,
+          provider: Providers.TWITTER,
+          profile_picture_url: userInput.profile['profile_image_url_https']
+        }
+      } else if (userInput.provider === Providers.GOOGLE) {
+        userInfos = {
+          identifier: userInput.profile['email'],
+          provider: Providers.GOOGLE,
+          profile_picture_url: userInput.profile['picture']
+        }
+      } else {
+        throw new HttpException('Unknown provider!', HttpStatus.BAD_REQUEST);
       }
-    });
-    if (!user) throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
 
-    const isValid = await bcrypt.compare(userCreateInput.password, user.password);
-    if (!isValid) throw new HttpException('Password not match', HttpStatus.BAD_REQUEST);
+      user = await this.userRepository.create(userInfos);
+    } else {
+      if (userInput.provider === Providers.TWITTER) {
+        user = await this.userRepository.findOne({ where: { identifier: userInput.username } });
+      } else if (userInput.provider === Providers.GOOGLE) {
+        user = await this.userRepository.findOne({ where: { identifier: userInput.profile['email'] } });
+      }
+    }
 
-    const formattedUser = new UserOutputDto(user);
+    if (!user) throw new HttpException('An error occured when retrieving user infos!', HttpStatus.INTERNAL_SERVER_ERROR);
+
+    const formattedUser = new UserInfoOutputDto(user);
     const jwt = this.jwt.sign({user: formattedUser});
-    if (!jwt) throw new HttpException('Token creation failed', HttpStatus.INTERNAL_SERVER_ERROR);
+    if (!jwt) throw new HttpException('Token creation failed!', HttpStatus.INTERNAL_SERVER_ERROR);
 
     return {
       token: jwt,
       user: formattedUser
     };
-  }
-  
-  async register(registerInput: UserCreateInputDto): Promise<UserCreateOutputDto> {
-    const user = await this.userRepository.findOne({
-      where: {
-        email: registerInput.email.toLowerCase()
-      }
-    })
-    if (user) throw new HttpException('Email already used by an user!', HttpStatus.BAD_REQUEST);
-  
-    registerInput.password = await bcrypt.hash(registerInput.password, 10);
-    const createdUser = await this.userRepository.create(registerInput);
-    
-    const jwt = this.jwt.sign({user: createdUser});
-    if (!jwt) throw new HttpException('Token creation failed', HttpStatus.INTERNAL_SERVER_ERROR);
-    
-    return {token: jwt, user: new UserOutputDto(createdUser)};
   }
 }
