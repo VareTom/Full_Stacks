@@ -79,4 +79,15 @@ export class AuthService {
       user: formattedUser
     };
   }
+
+  async getOne(uuid: string): Promise<UserInfoOutputDto> {
+    const user = await this.userRepository.findOne({
+      where: { uuid: uuid }
+    });
+
+    if (!user) {
+      throw new HttpException(`User doesn't exist`, HttpStatus.BAD_REQUEST);
+    }
+    return new UserInfoOutputDto(user);
+  }
 }

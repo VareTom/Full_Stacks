@@ -1,6 +1,7 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 // Services
 import { AuthService } from 'src/shared/services/auth.service';
@@ -17,14 +18,24 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class AuthComponent implements OnInit {
 
+  private readonly jwtHelper = new JwtHelperService();
+
   constructor(
     private authService: AuthService,
     private angularFireAuth: AngularFireAuth,
+    private router: Router,
     private translate: TranslateService,
     private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
+    if (localStorage.getItem('token')) {
+      const token = this.jwtHelper.decodeToken(localStorage.getItem('token'))
+      this.authService.get(token.userUuid).subscribe({
+        next: () => this.router.navigateByUrl('stacks'),
+        error: () => { }
+      });
+    }
   }
 
   private connect(userInfos: any): void {

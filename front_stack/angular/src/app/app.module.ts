@@ -13,7 +13,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app.component';
 
 // Modules
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from 'src/shared/shared.module';
+import { CmsModule } from 'src/modules/cms/cms.module';
 import { AuthModule } from 'src/modules/auth/auth.module';
 
 // Interceptors
@@ -50,6 +51,7 @@ const routes = [
 
     // Custom Modules
     AuthModule,
+    CmsModule,
     SharedModule
   ],
   providers: [

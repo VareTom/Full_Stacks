@@ -40,12 +40,24 @@ export class AuthService {
             localStorage.setItem('token', result.token);
             const user = new User(result.user);
             this.store.set('connectedUser', user);
-            this.router.navigateByUrl('cms');
+            this.router.navigateByUrl('stacks');
           }
         }),
         catchError(err => throwError(err))
       )
   }
+
+  get(uuid: string): Observable<void> {
+    return this.http.get(`${this.baseRoute}/${uuid}`)
+      .pipe(
+        map((result: any) => {
+          const newUser = new User(result);
+          this.store.set('connectedUser', newUser);
+        }),
+        catchError(error => throwError(error))
+      )
+  }
+
 
   logOut(): void {
     const auth = getAuth();

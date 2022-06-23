@@ -6,6 +6,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 
 // Components
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+
+// Containers
 import { CmsComponent } from './containers/cms/cms.component';
 
 // Custom Modules
@@ -14,8 +17,8 @@ import { SharedModule } from 'src/shared/shared.module';
 
 const routes: Routes = [
   {
-    path: '', component: CmsComponent, canActivate: [AuthGuard], children: [ //
-      { path: '', pathMatch: 'full', redirectTo: 'requests' },
+    path: '', component: CmsComponent, canActivate: [AuthGuard], children: [
+      { path: '', pathMatch: 'full', redirectTo: 'stacks' },
       { path: 'stacks', loadChildren: () => import('./stacks/stacks.module').then(m => m.StacksModule) },
       { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) }
     ]
@@ -24,7 +27,11 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    CmsComponent
+    // Containers
+    CmsComponent,
+
+    // Components
+    SidebarComponent
   ],
   imports: [
     CommonModule,

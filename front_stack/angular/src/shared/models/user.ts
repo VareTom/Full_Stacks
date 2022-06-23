@@ -1,11 +1,26 @@
+// Enums
+import { Providers } from 'src/shared/enums/Providers';
+
 export class User {
-    firstName: string;
-    lastName: string;
-    email: string;
-    
-    constructor(json: any) {
-        this.firstName = json.first_name;
-        this.lastName = json.last_name;
-        this.email = json.email;
-    }
+  uuid: string;
+  identifier: string;
+  profilePictureUrl: string;
+
+  provider: Providers;
+
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string;
+
+  constructor(json: Partial<User>) {
+    this.uuid = json.uuid;
+    this.identifier = json.identifier;
+    this.profilePictureUrl = json.profilePictureUrl;
+
+    if (Object.values(Providers).includes(json.provider)) this.provider = json.provider;
+
+    this.createdAt = json.createdAt;
+    this.updatedAt = json.updatedAt;
+    this.deletedAt = json.deletedAt;
+  }
 }
