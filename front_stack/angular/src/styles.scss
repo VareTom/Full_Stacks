@@ -10,7 +10,9 @@
   color: $black;
 }
 
-html {
+html,
+body {
+  height: 100%;
   background: $white;
 }
 
@@ -117,8 +119,7 @@ textarea {
   margin: 20px;
   padding: 40px;
   background: $white;
-  box-shadow:  10px 10px 20px rgba($black,0.2),
-  -10px -10px 20px white;
+  box-shadow: $box-shadow;
 }
 
 a {

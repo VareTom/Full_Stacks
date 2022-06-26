@@ -10,7 +10,6 @@ import { NotificationService } from './services/notification.service';
 
 // Components
 import { ButtonComponent } from './components/button/button.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 // Material
@@ -33,7 +32,6 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
   declarations: [
     // Components
     ButtonComponent,
-    SidebarComponent,
     FooterComponent
   ],
   imports: [
@@ -63,7 +61,6 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
 
     // Components
     ButtonComponent,
-    SidebarComponent,
     FooterComponent
   ]
 })

@@ -1,1 +1,15 @@
-<p>sidebar works!</p>
+<div class="sidebar flex-column" (click)="toggleMenu()" [class.opened]="isOpened">
+  <div class="logo flex-column">
+    <img src="assets/logo.svg" alt="stacks logo">
+    <h1>Stacks</h1>
+  </div>
+  <div class="menu-items flex-column center">
+    <div class="" *ngFor="let item of menuItems" (click)="item.click">
+      {{item.text}}
+    </div>
+  </div>
+  <div class="profile flex-column end">
+    coucou
+    <span class="username">toc</span>
+  </div>
+</div>

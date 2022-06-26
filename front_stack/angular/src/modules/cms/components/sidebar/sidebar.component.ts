@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  isOpened: boolean = false;
+
+  menuItems: any = [
+    { text: this.translate.instant('titles.stacks'), icon: '', click: this.onShowStacks() },
+    { text: this.translate.instant('titles.logout'), icon: '', click: this.onLogOut() }
+  ]
+
+  constructor(private translate: TranslateService) { }
 
   ngOnInit(): void {
+  }
+
+  toggleMenu() {
+    this.isOpened = !this.isOpened;
+  }
+
+  onLogOut(): void {
+    // TODO:: call auth service logout
+    console.log('logout')
+  }
+
+  onShowStacks(): void {
+    console.log('stacks')
+  }
+
+  onShowProfile(): void {
+    console.log('profile')
   }
 
 }

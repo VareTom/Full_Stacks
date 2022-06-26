@@ -1,0 +1,66 @@
+@import 'src/styles/colors.scss';
+
+.sidebar {
+  width: 80px;
+  box-shadow: 0 -10px 20px rgba($black, 0.2);
+  height: calc(100% - 50px);
+  transition: all ease-in-out .5s;
+
+  .logo {
+    margin-top: 30px;
+    flex: 1;
+    align-items: center;
+
+    img {
+      transition: all ease-in-out .5s;
+      width: 40px;
+      height: auto;
+    }
+
+    h1 {
+      transition: all ease-in-out .5s;
+      text-transform: uppercase;
+      font-weight: bold;
+      opacity: 0;
+    }
+  }
+
+  .menu-items {
+    flex: 1;
+
+    &>* {
+      cursor: pointer;
+    }
+  }
+
+  .profile {
+    flex: 1;
+    margin-bottom: 30px;
+
+    .username {
+      transition: all ease-in-out .5s;
+      opacity: 0;
+      text-transform: uppercase;
+    }
+  }
+
+  &:hover {
+    width: 200px;
+
+    .logo {
+      img {
+        width: 60px;
+      }
+
+      h1 {
+        opacity: 1;
+      }
+    }
+
+    .profile {
+      .username {
+        opacity: 1;
+      }
+    }
+  }
+}
